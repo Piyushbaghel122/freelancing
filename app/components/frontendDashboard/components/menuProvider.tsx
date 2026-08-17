@@ -1,6 +1,6 @@
 "use client";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 interface MenuContextType {

@@ -1,8 +1,8 @@
 "use client";
 
-import { Star, ArrowRight, CheckCircle2, Shield } from "lucide-react";
+import { Shield } from "lucide-react";
 import { FaInstagram, FaFacebook, FaPinterest, FaXTwitter } from "react-icons/fa6";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import { gsap } from "gsap";
@@ -12,7 +12,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function DarkMenu() {
    const { t } = useTranslation();
-   const [isHovered, setIsHovered] = useState(false);
    const sectionRef = useRef<HTMLElement>(null);
 
    useEffect(() => {

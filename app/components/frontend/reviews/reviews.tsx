@@ -133,7 +133,7 @@ function ReviewRow({
 }
 
 export default function Reviews() {
-  const pageRef = useRef<HTMLElement>(null);
+  const pageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const lenis = new Lenis({

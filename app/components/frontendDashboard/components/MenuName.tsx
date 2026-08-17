@@ -2,7 +2,7 @@ import { useMenu } from "./menuProvider";
 import { Plus, MessageSquare, Briefcase, FileEdit } from "lucide-react";
 
 export default function Header() {
-    const { isMenuOpen, closeMenu } = useMenu();
+    const { isMenuOpen, closeMenu, openMenu } = useMenu();
 
     return (
         <>
