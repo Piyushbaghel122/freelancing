@@ -48,16 +48,8 @@ export default function NavbarDashboard(){
                     </button>
                 </div>
 
-                {/* Middle: Search Bar */}
+                {/* Middle: Empty space for layout */}
                 <div className="flex-1 max-w-xl mx-8 hidden md:block">
-                    <div className="relative flex items-center bg-[#1a1a1f] border border-gray-800 rounded-lg px-4 py-2.5 w-full">
-                        <Search className="w-4 h-4 text-gray-500 mr-2" />
-                        <input 
-                            type="text" 
-                            placeholder="Search..." 
-                            className="bg-transparent border-none text-sm text-gray-200 placeholder-gray-500 w-full focus:outline-none focus:ring-0" 
-                        />
-                    </div>
                 </div>
 
                 {/* Right: Profile & Client */}
@@ -71,6 +63,8 @@ export default function NavbarDashboard(){
                         </div>
                         <span className="font-medium text-gray-300 group-hover:text-white transition-colors">client</span>
                     </button>
+                      
+                 
 
                     {/* Profile Dropdown Menu */}
                     {isProfileOpen && (

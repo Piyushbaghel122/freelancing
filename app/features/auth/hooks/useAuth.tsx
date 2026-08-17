@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import { RegisterUser as apiRegisterUser, LoginUser as apiLoginUser, LogoutUser as apiLogoutUser, GetMe as apiGetMe } from "../service/api";
+import { RegisterUser as apiRegisterUser, LoginUser as apiLoginUser, LogoutUser as apiLogoutUser, GetMe as apiGetMe, apiUploadAvatar } from "../service/api";
 
 export default function useAuth(){
     const [loading ,setLoading] = useState<boolean>(false);
@@ -14,7 +14,7 @@ export default function useAuth(){
             setLoading(false);
             return response;
         }catch(error: any){
-            setError(error);
+            setError(typeof error === 'string' ? error : (error?.response?.data?.error || error?.message || "An error occurred"));
             setLoading(false);
         }
     }
@@ -28,7 +28,7 @@ export default function useAuth(){
             setLoading(false);
             return response;
         }catch(error: any){
-            setError(error);
+            setError(typeof error === 'string' ? error : (error?.response?.data?.error || error?.message || "An error occurred"));
             setLoading(false);
         }
     }
@@ -41,7 +41,7 @@ export default function useAuth(){
             setLoading(false);
             return true;
         }catch(error: any){
-            setError(error);
+            setError(typeof error === 'string' ? error : (error?.response?.data?.error || error?.message || "An error occurred"));
             setLoading(false);
             return false;
         }
@@ -55,10 +55,23 @@ export default function useAuth(){
             setLoading(false);
             return response;
         }catch(error: any){
-            setError(error);
+            setError(typeof error === 'string' ? error : (error?.response?.data?.error || error?.message || "An error occurred"));
             setLoading(false);
         }
     }
 
-    return { loading, error, RegisterUser , LoginUser , LogoutUser , GetMe };
+    const UploadAvatar = async (file: File) => {
+        setLoading(true);
+        setError(null);
+        try{
+            const response = await apiUploadAvatar(file);
+            setLoading(false);
+            return response;
+        }catch(error: any){
+            setError(typeof error === 'string' ? error : (error?.response?.data?.error || error?.message || "An error occurred"));
+            setLoading(false);
+        }
+    }
+
+    return { loading, error, RegisterUser , LoginUser , LogoutUser , GetMe, UploadAvatar };
 }

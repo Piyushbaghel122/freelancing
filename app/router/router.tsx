@@ -14,6 +14,7 @@ const Pricing = lazy(() => import("../components/pricing/pricing"));
 const WizardHero = lazy(() => import("../components/wizard/wizardHero"));
 const Services = lazy(() => import("../components/frontend/components/services/services"));
 const About = lazy(() => import("../components/frontend/components/about/about"));
+const Profile = lazy(() => import("../features/auth/pages/profile"));
 
 const  FrontendRoute = createRoute({
     path : "/",
@@ -62,6 +63,16 @@ const  FrontendDashboardRoute = createRoute({
     )
 }) 
 
+const ProfileRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: "/dashboard/profile",
+    component: () => (
+        <Suspense fallback={<div>Loading...</div>}>
+            <Profile />
+        </Suspense>
+    )
+})
+
 const PricingRout = createRoute({
   
     getParentRoute: () => rootRoute,
@@ -108,6 +119,7 @@ const Route = rootRoute.addChildren([
     LoginUserRoute,
     RegisterUserRoute,
     FrontendDashboardRoute,
+    ProfileRoute,
     PricingRout,
     WizardRoute,
     aboutRoute, 

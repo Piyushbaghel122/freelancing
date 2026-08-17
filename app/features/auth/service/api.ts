@@ -2,20 +2,30 @@
 import axios from "axios"; 
 
 const api = axios.create({
-    baseURL : "http://localhost:3000/api/v1/auth",
+    baseURL : "http://localhost:8080/api/auth",
     headers : {
-        "Content-Type" : "application/json",
-        "Authorization" : `Bearer ${localStorage.getItem("token")}`
+        "Content-Type" : "application/json"
     }
-})
+});
+
+api.interceptors.request.use((config) => {
+    if (typeof window !== 'undefined') {
+        const token = localStorage.getItem("token");
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+    }
+    return config;
+});
+
 
 export async function RegisterUser({username , email , password}: {username:string , email:string , password:string}){
     try{
-        const response = await api.post("/register" , {username , email , password})
+        const response = await api.post("/signup" , {username , email , password})
         localStorage.setItem("token" , response.data.token)
         return response.data;
-    }catch(error : any){
-        throw error.response.data.message;
+        }catch(error : any){
+        throw error?.response?.data?.message || error?.message || "An unexpected error occurred";
     }
 }
 
@@ -25,7 +35,7 @@ export async function LoginUser({email , password}: {email:string , password:str
         localStorage.setItem("token" , response.data.token)
         return response.data;
     }catch(error : any){
-        throw error.response.data.message;
+        throw error?.response?.data?.message || error?.message || "An unexpected error occurred";
     }
 }
 
@@ -35,15 +45,31 @@ export async function LogoutUser(){
         localStorage.removeItem("token")
         return response.data;
     }catch(error : any){
-        throw error.response.data.message;
+        throw error?.response?.data?.message || error?.message || "An unexpected error occurred";
     }
 }
 
 export async function GetMe(){
     try{
-        const response = await api.get("/getme")
+        const response = await api.get("/profile")
         return response.data;
     }catch(error : any){
-        throw error.response.data.message;
+        throw error?.response?.data?.message || error?.message || "An unexpected error occurred";
+    }
+}
+
+export async function apiUploadAvatar(file: File){
+    try{
+        const formData = new FormData();
+        formData.append("avatar", file);
+        
+        const response = await api.post("/upload-avatar", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        });
+        return response.data;
+    }catch(error : any){
+        throw error?.response?.data?.message || error?.message || "An unexpected error occurred";
     }
 }
