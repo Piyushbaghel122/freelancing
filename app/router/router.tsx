@@ -15,8 +15,6 @@ const WizardHero = lazy(() => import("../components/wizard/wizardHero"));
 const Services = lazy(() => import("../components/frontend/components/services/services"));
 const About = lazy(() => import("../components/frontend/components/about/about"));
 
-
-
 const  FrontendRoute = createRoute({
     path : "/",
     getParentRoute : () => rootRoute,
@@ -126,5 +124,7 @@ const Router = createRouter({
         )
     }
 });
+
+
 
 export default Router;
